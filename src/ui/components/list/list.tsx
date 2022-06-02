@@ -2,6 +2,7 @@
 import { Button } from '@mui/material'
 import * as S from './List.style'
 import {Pet} from '../../../data/@types/pet'
+import {TextService} from '../../../data/services/TextService'
 
 interface ListProps {
     pets: Pet[];
@@ -9,6 +10,9 @@ interface ListProps {
 }
 
 export default function List(props: ListProps){
+
+    const maxSizeText = 200;
+
     return(
         <S.ListStyled>
                 {props.pets.map(pet =>(        
@@ -16,7 +20,7 @@ export default function List(props: ListProps){
                         <S.Photo src={pet.photo} alt = {pet.name} />
                         <S.Info> 
                             <S.Name>{pet.name}</S.Name>
-                            <S.Description>{pet.history}</S.Description>
+                            <S.Description>{TextService.limitText(pet.history, maxSizeText)}</S.Description>
                             <Button variant={'contained'} fullWidth>Adotar {pet.name} </Button>
                         </S.Info>
                     </S.ItemList>
